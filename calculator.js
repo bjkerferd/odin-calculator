@@ -43,6 +43,7 @@ function calculator() {
     numbers.forEach(numbers => numbers.addEventListener("click", onNumberClick));
     operators.forEach(operator => operator.addEventListener("click", onOperatorClick));
     document.querySelector("#back").addEventListener("click", onBackClick);
+    document.querySelector("#clear").addEventListener("click", onClearClick);
 
     function onNumberClick(e) {
         num = e.target.textContent
@@ -77,7 +78,13 @@ function calculator() {
     }
 
     function onClearClick() {
-        
+        input = "";
+        a = "";
+        b = "";
+        op = "";
+        hasInput = false;
+        IO.textContent = "";
+        expression.textContent = "";
     }
 }
 
