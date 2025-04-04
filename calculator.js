@@ -42,6 +42,7 @@ function calculator() {
     const operators = document.querySelectorAll(".operator.numeric");
     numbers.forEach(numbers => numbers.addEventListener("click", onNumberClick));
     operators.forEach(operator => operator.addEventListener("click", onOperatorClick));
+    document.querySelector("#back").addEventListener("click", onBackClick);
 
     function onNumberClick(e) {
         num = e.target.textContent
@@ -71,7 +72,12 @@ function calculator() {
     
     function onBackClick(e) {
         if (hasInput) {
+            IO.textContent = IO.textContent.slice(0, -1);
         }
+    }
+
+    function onClearClick() {
+        
     }
 }
 
