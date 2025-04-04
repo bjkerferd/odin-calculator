@@ -34,7 +34,10 @@ function calculator() {
     let a = null;
     let b = null;
     let op = null;
-    let hasInput = false
+    let hasInput = false;
+    let hasOutput = false;
+    let ops = ["+", "-", "/", "*", "="];
+    let nums = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."];
 
     const IO = document.querySelector("#IO");
     const expression = document.querySelector("#expression");
@@ -44,15 +47,23 @@ function calculator() {
     operators.forEach(operator => operator.addEventListener("click", onOperatorClick));
     document.querySelector("#back").addEventListener("click", onBackClick);
     document.querySelector("#clear").addEventListener("click", onClearClick);
+    document.querySelector("#evaluate").addEventListener("click", onEqualClick);
 
     function onNumberClick(e) {
-        num = e.target.textContent
+        num = e.target.textContent;
+        if (hasOutput) onClearClick();
         hasInput ? IO.textContent += num : IO.textContent = num;
         hasInput = true;
+        hasOutput = false;
     }
     
     function onOperatorClick(e) {
-        if (hasInput) {
+        if (hasOutput) {
+            a = Number(IO.textContent);
+            op = e.target.textContent;
+            hasOutput = false;
+            expression.textContent = `${a} ${op}`
+        } else if (hasInput) {
             if (!a) {
                 // if we don't have a, update it
                 a = Number(IO.textContent);
@@ -83,8 +94,39 @@ function calculator() {
         b = "";
         op = "";
         hasInput = false;
+        hasOutput = false;
         IO.textContent = "";
         expression.textContent = "";
+    }
+
+    function onEqualClick() {
+        if (hasOutput) {
+            a = Number(IO.textContent);
+            hasOutput = false;
+            expression.textContent = `${a} =`
+            hasInput = false;
+            hasOutput = true;
+        } if (hasInput) {
+            if (!a) {
+                a = Number(IO.textContent);
+                // then input = input
+                expression.textContent = `${a} = `;
+                hasInput = false;
+                hasOutput = true;
+            } else { 
+                b = Number(IO.textContent);
+                output = operate(a, b, op);
+                expression.textContent = `${a} ${op} ${b} = `
+                IO.textContent = output;
+                hasInput = false;
+                hasOutput = true;
+                b = null;
+            }
+        }
+    }
+
+    function onKeyPress() {
+
     }
 }
 
