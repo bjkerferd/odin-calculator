@@ -1,12 +1,111 @@
-/* Examples...
- @import "./styles/_base.css";
-@import "./styles/container.css";
-@import "./styles/buttons.css";
-@import "./styles/typography.css";
-@import "./styles/logo.css";
-@import "./styles/nav.css";
-@import "./styles/hero.css";
-@import "./styles/search.css";
-@import "./styles/about.css";
-@import "./styles/call-to-action.css";
-@import "./styles/footer.css"; */
+:root {
+    --button-size: 60px;
+    --gap: 16px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#calculator {
+    width: auto;
+    height: auto;
+    background-color: rgb(255, 220, 167);
+    border: 2px solid black;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    padding: var(--gap);
+}   
+
+#display {
+    font-family: "DotGothic16", sans-serif;
+    width: auto;
+    height: auto;
+    text-align: right;
+    padding: var(--gap);
+    background-color: rgb(236, 236, 236);
+    border: 2px solid black;
+    border-radius: 4px;
+}
+
+#expression {
+    width: 100%;
+    font-size: 1.2rem;
+    height: 2.2rem;
+}
+
+#IO {
+    font-size: 2rem;
+    height: 3rem;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    gap: var(--gap);
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    gap: var(--gap);
+}
+
+#btns {
+    /* margin: 24px; */
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+}
+
+button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 0;
+    padding: 0.5rem 1rem; /* Add appropriate padding */
+    line-height: 1; /* Use a standard line height instead of 0 */
+    text-align: center;
+    vertical-align: middle;
+}
+
+.operator {
+    width: var(--button-size);
+    aspect-ratio: 1;
+    border-radius: 100%;
+    background-color: #ECF7E7;
+    font-size: 2rem;
+    /* font-family: "Segoe UI"; */
+}
+
+.number {
+    width: var(--button-size);
+    aspect-ratio: 1;
+    background-color: rgb(236, 236, 236);
+    font-size: 2rem;
+    border-radius: 4px;
+}
+
+#clear {
+    background-color: white;
+    font-size: 1.4rem;
+}
+
+#equate {
+    height: 100%;
+    border-radius: 4px;
+}
