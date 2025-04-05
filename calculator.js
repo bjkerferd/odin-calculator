@@ -36,7 +36,6 @@ function calculator() {
     let op = null;
     let hasInput = false;
     let hasOutput = false;
-    let ops = ["+", "-", "/", "*", "="];
     let nums = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."];
 
     const IO = document.querySelector("#IO");
@@ -48,26 +47,36 @@ function calculator() {
     document.querySelector("#back").addEventListener("click", onBackClick);
     document.querySelector("#clear").addEventListener("click", onClearClick);
     document.querySelector("#evaluate").addEventListener("click", onEqualClick);
+    document.addEventListener("keyup", onKeyPress);
 
     function onNumberClick(e) {
-        num = e.target.textContent;
+        inputNum = e.target.textContent;
+        processNumberInput(inputNum);
+    }
+
+    function processNumberInput(inputNum) {
         if (hasOutput) onClearClick();
-        hasInput ? IO.textContent += num : IO.textContent = num;
+        hasInput ? IO.textContent += inputNum : IO.textContent = inputNum;
         hasInput = true;
         hasOutput = false;
     }
     
     function onOperatorClick(e) {
+        inputOp = e.target.textContent;
+        processOperatorInput(inputOp);
+    }    
+
+    function processOperatorInput(inputOp) {
         if (hasOutput) {
             a = Number(IO.textContent);
-            op = e.target.textContent;
             hasOutput = false;
-            expression.textContent = `${a} ${op}`
+            op = inputOp;
+            expression.textContent = `${a} ${op}`;
         } else if (hasInput) {
             if (!a) {
                 // if we don't have a, update it
                 a = Number(IO.textContent);
-                op = e.target.textContent;
+                op = inputOp;
                 hasInput = false;
                 expression.textContent = `${a} ${op}`
             } else {
@@ -76,13 +85,13 @@ function calculator() {
                 a = operate(a, b, op);
                 IO.textContent = a;
                 hasInput = false;
-                op = e.target.textContent;
+                op = inputOp;
                 expression.textContent = `${a} ${op}`
             }
         }
-    }    
+    }
     
-    function onBackClick(e) {
+    function onBackClick() {
         if (hasInput) {
             IO.textContent = IO.textContent.slice(0, -1);
         }
@@ -125,8 +134,22 @@ function calculator() {
         }
     }
 
-    function onKeyPress() {
-
+    function onKeyPress(e) {
+        console.log(e.key);
+        if (nums.includes(e.key)) {
+            processNumberInput(e.key);
+        } else {
+            switch (e.key) {
+                case "*" : processOperatorInput("×"); break;
+                case "/" : processOperatorInput("÷"); break;
+                case "+" : processOperatorInput("+"); break;
+                case "-" : processOperatorInput("-"); break;
+                case "Escape" : onClearClick(); break;
+                case "Backspace" : onBackClick(); break;
+                case "=" : onEqualClick(); break;
+                case "Enter" : onEqualClick(); break;
+            }
+        }
     }
 }
 
